@@ -11,8 +11,22 @@
 -- Dica 1: use funções auxiliares, que façam parte do processo;
 -- Dica 2: verifique que sua solução funciona para listas de tamanho ímpar.
 
-bSort :: Ord t => [t] -> [t]
+bSortH2 :: Ord t => [t] -> [t]
+bSortH2 [] = []
+bSortH2 [a] = [a]
+bSortH2 (a:b:cs)
+    | a > b = [b] ++ bSortH2 (a:cs)
+    | otherwise = [a] ++ bSortH2 (b:cs)
 
+bSortH1 :: Ord t => [t] -> Int -> [t]
+bSortH1 [] _ = []
+bSortH1 [a] _ = [a]
+bSortH1 lst n
+    | (length lst) == n = lst
+    | otherwise = bSortH1 (bSortH2 lst) (n + 1)
+
+bSort :: Ord t => [t] -> [t]
+bSort lst = bSortH1 lst 0
 
 
 
